@@ -60,7 +60,7 @@ As a client, I want to be able to make a `POST` request to `/tasks` with the fol
 
 ```json
 {
-  "title": "A Brand New Task",
+  "title": "A Bran() New Task",
   "description": "Test Description",
   "completed_at": null
 }
