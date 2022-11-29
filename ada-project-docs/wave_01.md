@@ -227,7 +227,7 @@ If the HTTP request is missing `description`, we should also get this response:
 }
 ```
 
-#### Missing `completed_at`
+<!-- #### Missing `completed_at`
 
 If the HTTP request is missing `completed_at`, we should also get this response:
 
@@ -237,4 +237,4 @@ If the HTTP request is missing `completed_at`, we should also get this response:
 {
   "details": "Invalid data"
 }
-```
+``` -->

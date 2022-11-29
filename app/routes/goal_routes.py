@@ -7,6 +7,7 @@ from app.models.task import Task
 
 goal_bp = Blueprint("goal_bp", __name__, url_prefix="/goals")
 
+
 @goal_bp.route("", methods=["POST"])
 def create_goal():
     request_body = request.get_json()
@@ -21,6 +22,7 @@ def create_goal():
         "goal": new_goal.to_dict()
     }, 201
 
+
 @goal_bp.route("", methods=["GET"])
 def read_all_goals():
     goal_query = Goal.query
@@ -34,6 +36,7 @@ def read_all_goals():
     goals = goal_query.all()
     goal_response = [goal.to_dict() for goal in goals]
     return jsonify(goal_response), 200
+
 
 @goal_bp.route("/<id>", methods=["GET"])
 def read_one_goal(id):
@@ -50,11 +53,12 @@ def update_one_goal(id):
     goal.update(request_body)
 
     db.session.commit()
-    
+
     return {
         "goal": goal.to_dict()
     }
-    
+
+
 @goal_bp.route("/<id>", methods=["DELETE"])
 def delete_one_goal(id):
     goal = get_record_by_id(Goal, id)
@@ -66,11 +70,12 @@ def delete_one_goal(id):
         "details": f"Goal {goal.goal_id} \"{goal.title}\" successfully deleted"
     }
 
+
 @goal_bp.route("/<id>/tasks", methods=["POST"])
 def add_task_to_goal(id):
     goal = get_record_by_id(Goal, id)
     request_body = request.get_json()
-    
+
     for task_id in request_body["task_ids"]:
         task = get_record_by_id(Task, task_id)
         task.goal_id = id
@@ -87,15 +92,14 @@ def add_task_to_goal(id):
         "task_ids": task_ids
     }
 
+
 @goal_bp.route("/<id>/tasks", methods=["GET"])
 def read_tasks_of_goal(id):
     goal = get_record_by_id(Goal, id)
     task_list = [task.to_dict() for task in goal.tasks]
     # print(task_list)
-    
+
     goal_dict = goal.to_dict()
     goal_dict["tasks"] = task_list
 
     return jsonify(goal_dict)
-
-
